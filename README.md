@@ -105,17 +105,17 @@ The table below correctly indicates which inputs are required.
 
 ```hcl
 module "cloudtrail" {
-  source = "cloudposse/cloudtrail/aws"
+  source = "appzen-oos/cloudtrail/aws"
   # Cloud Posse recommends pinning every module to a specific version
   # version     = "x.x.x"
-  namespace                     = "eg"
-  stage                         = "dev"
-  name                          = "cluster"
+  name                          = "dev-account-cloudtrail"
   enable_log_file_validation    = true
   include_global_service_events = true
+  insight_selector              = [ {insight_type = "ApiCallRateInsight"} ]
   is_multi_region_trail         = false
   enable_logging                = true
-  s3_bucket_name                = "my-cloudtrail-logs-bucket"
+  s3_bucket_name                = "s3-log-storage"
+  s3_key_prefix                 = "cloudtrail"
 }
 ```
 
@@ -125,8 +125,8 @@ It creates an S3 bucket and an IAM policy to allow CloudTrail logs.
 
 ```hcl
 module "cloudtrail" {
-  source = "cloudposse/cloudtrail/aws"
-  # Cloud Posse recommends pinning every module to a specific version
+  source = "appzen-oss/cloudtrail/aws"
+  # Recommends pinning every module to a specific version
   # version     = "x.x.x"
   namespace                     = "eg"
   stage                         = "dev"
@@ -196,6 +196,7 @@ Available targets:
 | enabled | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | environment | Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | event\_selector | Specifies an event selector for enabling data event logging. See: https://www.terraform.io/docs/providers/aws/r/cloudtrail.html for details on this variable | <pre>list(object({<br>    include_management_events = bool<br>    read_write_type           = string<br><br>    data_resource = list(object({<br>      type   = string<br>      values = list(string)<br>    }))<br>  }))</pre> | `[]` | no |
+| insight\_selector | Specifies an insight selector for identifying unusual operational activity. See: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudtrail#insight_type details for this variable | <pre>list(object({<br>    insight_type           = string<br>  }))</pre> | `[]` | no |
 | id\_length\_limit | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for default, which is `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | include\_global\_service\_events | Specifies whether the trail is publishing events from global services such as IAM to the log files | `bool` | `false` | no |
 | is\_multi\_region\_trail | Specifies whether the trail is created in the current region or in all regions | `bool` | `true` | no |
@@ -208,6 +209,7 @@ Available targets:
 | namespace | Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp' | `string` | `null` | no |
 | regex\_replace\_chars | Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.<br>If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits. | `string` | `null` | no |
 | s3\_bucket\_name | S3 bucket name for CloudTrail logs | `string` | n/a | yes |
+| s3\_key\_prefix | Specifies the S3 key prefix that follows the name of the bucket you have designated for log file delivery. | `string` | n/a | yes |
 | stage | Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release' | `string` | `null` | no |
 | tags | Additional tags (e.g. `map('BusinessUnit','XYZ')` | `map(string)` | `{}` | no |
 
@@ -369,7 +371,7 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 ### Contributors
 
 <!-- markdownlint-disable -->
-|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] | [![Sergey Vasilyev][s2504s_avatar]][s2504s_homepage]<br/>[Sergey Vasilyev][s2504s_homepage] | [![Valeriy][drama17_avatar]][drama17_homepage]<br/>[Valeriy][drama17_homepage] | [![Jamie Nelson][Jamie-BitFlight_avatar]][Jamie-BitFlight_homepage]<br/>[Jamie Nelson][Jamie-BitFlight_homepage] |
+|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] | [![Sergey Vasilyev][s2504s_avatar]][s2504s_homepage]<br/>[Sergey Vasilyev][s2504s_homepage] | [![Valeriy][drama17_avatar]][drama17_homepage]<br/>[Valeriy][drama17_homepage] | [![Jamie Nelson][Jamie-BitFlight_avatar]][Jamie-BitFlight_homepage]<br/>[Jamie Nelson][Jamie-BitFlight_homepage] | [![Pravinsingh Rajput][pravinrajput_avatar]][pravinrajput_homepage]<br/>[Pravinsingh Rajput][pravinrajput_homepage]
 |---|---|---|---|---|
 <!-- markdownlint-restore -->
 
@@ -383,6 +385,8 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [drama17_avatar]: https://img.cloudposse.com/150x150/https://github.com/drama17.png
   [Jamie-BitFlight_homepage]: https://github.com/Jamie-BitFlight
   [Jamie-BitFlight_avatar]: https://img.cloudposse.com/150x150/https://github.com/Jamie-BitFlight.png
+  [pravinrajput_homepage]: https://github.com/pravinrajput
+  [pravinrajput_avatar]: https://img.cloudposse.com/150x150/pravinrajput.png
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
