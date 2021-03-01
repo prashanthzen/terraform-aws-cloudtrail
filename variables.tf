@@ -16,6 +16,15 @@ variable "include_global_service_events" {
   description = "Specifies whether the trail is publishing events from global services such as IAM to the log files"
 }
 
+variable "insight_selector" {
+  type = list(object({
+    insight_type = string
+  }))
+
+  default     = []
+  description = "Specifies an insight selector for identifying unusual operational activity. See: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudtrail#insight_type details for this variable"
+}
+
 variable "enable_logging" {
   type        = bool
   default     = true
@@ -25,6 +34,12 @@ variable "enable_logging" {
 variable "s3_bucket_name" {
   type        = string
   description = "S3 bucket name for CloudTrail logs"
+}
+
+variable "s3_key_prefix" {
+  type        = string
+  description = "Specifies the S3 key prefix that follows the name of the bucket you have designated for log file delivery."
+  default     = ""
 }
 
 variable "cloud_watch_logs_role_arn" {
