@@ -386,7 +386,7 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [Jamie-BitFlight_homepage]: https://github.com/Jamie-BitFlight
   [Jamie-BitFlight_avatar]: https://img.cloudposse.com/150x150/https://github.com/Jamie-BitFlight.png
   [pravinrajput_homepage]: https://github.com/pravinrajput
-  [pravinrajput_avatar]: https://img.cloudposse.com/150x150/pravinrajput.png
+  [pravinrajput_avatar]: https://img.cloudposse.com/150x150/https://github.com/pravinrajput.png
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
