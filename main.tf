@@ -5,6 +5,7 @@ resource "aws_cloudtrail" "default" {
   s3_bucket_name                = var.s3_bucket_name
   s3_key_prefix                 = var.s3_key_prefix
   enable_log_file_validation    = var.enable_log_file_validation
+  sns_topic_name                = var.sns_topic_name
   is_multi_region_trail         = var.is_multi_region_trail
   include_global_service_events = var.include_global_service_events
   cloud_watch_logs_role_arn     = var.cloud_watch_logs_role_arn
@@ -12,7 +13,7 @@ resource "aws_cloudtrail" "default" {
   tags                          = module.this.tags
   kms_key_id                    = var.kms_key_arn
   is_organization_trail         = var.is_organization_trail
-
+  s3_key_prefix                 = var.s3_key_prefix
   dynamic "event_selector" {
     for_each = var.event_selector
     content {
