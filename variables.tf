@@ -80,3 +80,15 @@ variable "is_organization_trail" {
   default     = false
   description = "The trail is an AWS Organizations trail"
 }
+
+variable "sns_topic_name" {
+  type        = string
+  description = "Specifies the name of the Amazon SNS topic defined for notification of log file delivery"
+  default     = null
+}
+
+variable "s3_key_prefix" {
+  type        = string
+  description = "Prefix for S3 bucket used by Cloudtrail to store logs"
+  default     = null
+}
