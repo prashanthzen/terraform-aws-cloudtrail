@@ -67,8 +67,13 @@ variable "advanced_event_selector" {
   type = list(object({
     name = string
     field_selector = list(object({
-      field     = string
-      condition = list(string)
+      field           = string
+      condition       = list(string)
+      not_equals      = list(string)
+      starts_with     = list(string)
+      not_starts_with = list(string)
+      ends_with       = list(string)
+      not_ends_with   = list(string)
     }))
   }))
 
