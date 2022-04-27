@@ -63,6 +63,24 @@ variable "event_selector" {
   default     = []
 }
 
+variable "advanced_event_selector" {
+  type = list(object({
+    name = string
+    field_selector = list(object({
+      field           = string
+      equals          = list(string)
+      not_equals      = list(string)
+      starts_with     = list(string)
+      not_starts_with = list(string)
+      ends_with       = list(string)
+      not_ends_with   = list(string)
+    }))
+  }))
+
+  description = "Specifies advanced event selector for enabling data event logging. See: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudtrail.html for details on this variable"
+  default     = []
+}
+
 variable "kms_key_arn" {
   type        = string
   description = "Specifies the KMS key ARN to use to encrypt the logs delivered by CloudTrail"
