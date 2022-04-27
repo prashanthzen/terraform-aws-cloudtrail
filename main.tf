@@ -33,8 +33,13 @@ resource "aws_cloudtrail" "default" {
     for_each = var.advanced_event_selector
     content {
       name = lookup(advanced_event_selector.value, "name", null)
+
       dynamic "field_selector" {
         for_each = lookup(advanced_event_selector.value, "field_selector", [])
+        content {
+          field     = field_selector.value.field
+          condition = field_selector.value.condition
+        }
       }
     }
   }
