@@ -65,16 +65,8 @@ variable "event_selector" {
 
 variable "advanced_event_selector" {
   type = list(object({
-    name = string
-    field_selector = list(object({
-      field           = string
-      equals          = list(string)
-      not_equals      = list(string)
-      starts_with     = list(string)
-      not_starts_with = list(string)
-      ends_with       = list(string)
-      not_ends_with   = list(string)
-    }))
+    name           = string
+    field_selector = list(object({}))
   }))
 
   description = "Specifies advanced event selector for enabling data event logging. See: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudtrail.html for details on this variable"
