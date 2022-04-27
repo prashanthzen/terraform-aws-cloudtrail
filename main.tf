@@ -38,12 +38,12 @@ resource "aws_cloudtrail" "default" {
         for_each = lookup(advanced_event_selector.value, "field_selector", [])
         content {
           field           = field_selector.value.field
-          equals          = field_selector.value.equals
-          not_equals      = field_selector.value.not_equals
-          starts_with     = field_selector.value.starts_with
-          not_starts_with = field_selector.value.not_starts_with
-          ends_with       = field_selector.value.ends_with
-          not_ends_with   = field_selector.value.not_ends_with
+          equals          = lookup(field_selector.value, "equals", null)
+          not_equals      = lookup(field_selector.value, "not_equals", null)
+          starts_with     = lookup(field_selector.value, "starts_with", null)
+          not_starts_with = lookup(field_selector.value, "not_starts_with", null)
+          ends_with       = lookup(field_selector.value, "ends_with", null)
+          not_ends_with   = lookup(field_selector.value, "not_ends_with", null)
         }
       }
     }
