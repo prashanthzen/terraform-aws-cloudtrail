@@ -68,7 +68,7 @@ variable "advanced_event_selector" {
     name = string
     field_selector = list(object({
       field           = string
-      condition       = list(string)
+      equals          = list(string)
       not_equals      = list(string)
       starts_with     = list(string)
       not_starts_with = list(string)
